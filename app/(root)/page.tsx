@@ -1,8 +1,9 @@
 
+
 export default function Home() {
   return (
-    <main>
-      Threads
-    </main>
-  )
+    <>
+      <h1 className="head-text text-left">Home</h1>
+    </>
+  );
 }
