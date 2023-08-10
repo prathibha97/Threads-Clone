@@ -9,12 +9,14 @@ import {
   FormLabel,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { updateUser } from '@/lib/actions/user.actions';
 import { useUploadThing } from '@/lib/uploadthing';
 import { isBase64Image } from '@/lib/utils';
 import { UserValidation } from '@/lib/validations/user';
 import { User } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
@@ -26,6 +28,9 @@ interface AccountProfileProps {
 }
 
 const AccountProfile: FC<AccountProfileProps> = ({ btnTitle, user }) => {
+  const router = useRouter();
+  const pathName = usePathname();
+
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing('media');
 
@@ -73,7 +78,20 @@ const AccountProfile: FC<AccountProfileProps> = ({ btnTitle, user }) => {
         values.profile_photo = imgRes[0].fileUrl;
       }
     }
-    //TODO: Update user profile
+    await updateUser({
+      username: values.username,
+      name: values.name,
+      bio: values.bio,
+      image: values.profile_photo,
+      userId: user.id,
+      path: pathName,
+    });
+
+    if (pathName === '/profile/edit') {
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
 
   return (
