@@ -20,5 +20,5 @@ export type Community = {
 };
 
 export type Comment = {
-  author?: Author;
+  author?: Author | '';
 };

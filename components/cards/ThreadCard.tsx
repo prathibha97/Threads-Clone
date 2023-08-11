@@ -106,6 +106,7 @@ const ThreadCard: FC<ThreadCardProps> = ({
           {comments.slice(0, 2).map((comment, index) => (
             <Image
               key={index}
+              // @ts-ignore
               src={comment?.author?.image}
               alt={`user_${index}`}
               width={24}
