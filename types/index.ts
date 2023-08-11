@@ -6,3 +6,19 @@ export type User = {
   bio: string;
   image: string;
 };
+
+export type Author ={
+  id: string;
+  name: string;
+  image: string;
+}
+
+export type Community = {
+  id: string;
+  name: string;
+  image: string;
+};
+
+export type Comment = {
+  author?: Author;
+};

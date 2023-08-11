@@ -7,6 +7,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { updateUser } from '@/lib/actions/user.actions';
@@ -134,6 +135,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ btnTitle, user }) => {
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -153,6 +155,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ btnTitle, user }) => {
                   type='text'
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -172,6 +175,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ btnTitle, user }) => {
                   type='text'
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -191,6 +195,7 @@ const AccountProfile: FC<AccountProfileProps> = ({ btnTitle, user }) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
