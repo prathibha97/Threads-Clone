@@ -65,7 +65,7 @@ const ThreadCard: FC<ThreadCardProps> = ({
                   height={24}
                   className='cursor-pointer object-contain'
                 />
-                <Link href={`/thread/${id}`}>
+                <Link href={`/threads/${id}`}>
                   <Image
                     src='/assets/reply.svg'
                     alt='heart'
@@ -91,7 +91,7 @@ const ThreadCard: FC<ThreadCardProps> = ({
               </div>
 
               {isComment && comments.length > 0 && (
-                <Link href={`/thread/${id}`}>
+                <Link href={`/threads/${id}`}>
                   <p className='mt-1 text-subtle-medium text-gray-1'>
                     {comments.length} repl{comments.length > 1 ? 'ies' : 'y'}
                   </p>
@@ -114,7 +114,7 @@ const ThreadCard: FC<ThreadCardProps> = ({
             />
           ))}
 
-          <Link href={`/thread/${id}`}>
+          <Link href={`/threads/${id}`}>
             <p className='mt-1 text-subtle-medium text-gray-1'>
               {comments.length} repl{comments.length > 1 ? 'ies' : 'y'}
             </p>
