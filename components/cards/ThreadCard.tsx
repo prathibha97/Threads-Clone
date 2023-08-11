@@ -1,31 +1,36 @@
-import { Author, Comment, Community } from '@/types';
+import { formatDateString } from '@/lib/utils';
+import { Author, Community } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
+import DeleteThread from '../forms/DeleteThread';
 
-interface ThreadCardProps {
+interface Props {
   id: string;
-  currentUserId: string | undefined;
+  currentUserId: string;
   parentId: string | null;
   content: string;
   author: Author;
   community: Community | null;
   createdAt: string;
-  comments: Comment[];
+  comments: {
+    author: {
+      image: string;
+    };
+  }[];
   isComment?: boolean;
 }
 
-const ThreadCard: FC<ThreadCardProps> = ({
-  author,
-  comments,
-  community,
-  content,
-  createdAt,
-  currentUserId,
+function ThreadCard({
   id,
+  currentUserId,
   parentId,
+  content,
+  author,
+  community,
+  createdAt,
+  comments,
   isComment,
-}) => {
+}: Props) {
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -100,7 +105,16 @@ const ThreadCard: FC<ThreadCardProps> = ({
             </div>
           </div>
         </div>
+
+        <DeleteThread
+          threadId={JSON.stringify(id)}
+          currentUserId={currentUserId}
+          authorId={author.id}
+          parentId={parentId}
+          isComment={isComment}
+        />
       </div>
+
       {!isComment && comments.length > 0 && (
         <div className='ml-1 mt-3 flex items-center gap-2'>
           {comments.slice(0, 2).map((comment, index) => (
@@ -111,7 +125,7 @@ const ThreadCard: FC<ThreadCardProps> = ({
               alt={`user_${index}`}
               width={24}
               height={24}
-              className={`${index !== 0 && '-ml-5'} rounded-full object-contain`}
+              className={`${index !== 0 && '-ml-5'} rounded-full object-cover`}
             />
           ))}
 
@@ -122,8 +136,28 @@ const ThreadCard: FC<ThreadCardProps> = ({
           </Link>
         </div>
       )}
+
+      {!isComment && community && (
+        <Link
+          href={`/communities/${community.id}`}
+          className='mt-5 flex items-center'
+        >
+          <p className='text-subtle-medium text-gray-1'>
+            {formatDateString(createdAt)}
+            {community && ` - ${community.name} Community`}
+          </p>
+
+          <Image
+            src={community.image}
+            alt={community.name}
+            width={14}
+            height={14}
+            className='ml-1 rounded-full object-cover'
+          />
+        </Link>
+      )}
     </article>
   );
-};
+}
 
 export default ThreadCard;
